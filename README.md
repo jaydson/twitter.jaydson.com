@@ -1,4 +1,4 @@
-# twiiter.jaydson.com
+# twitter.jaydson.com
 This is the source code for my (https://twitter.jaydson.com/) Twitter website.  
 I'm using [Hugo](https://gohugo.io) static site generator.  
 If you're interested to build your website based on mine, feel free and follow the guidelines below.  
