@@ -1,0 +1,56 @@
+{{ partial "header.html" . }}
+
+{{ if not .IsHome }}
+  <header class="list-header">
+    {{ if eq .Data.Singular "tag" }}<span>Tagged in</span>
+      <h1 class="list-title">{{ .Data.Term }}</h1>
+    {{ else }}<h1 class="list-title">Posts</h1>
+    {{ end }}
+  </header>
+{{ end }}
+
+{{ $paginator := .Paginate (where .Pages ".Params.type" "!=" "page") (index .Site.Params "paginate" | default 50) }}
+
+{{ if gt $paginator.TotalPages 0 }}
+  {{ range $index, $page := $paginator.Pages }}
+  
+    {{ if and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0) }}
+    {{ .Scratch.Set "postClass" "post-entry" }}
+    {{ .Scratch.Set "firstEmoji" "<span class=\"welcome-emoji\">👉</span>" }}
+    {{ else }}
+    {{ .Scratch.Set "postClass" "post-entry" }}
+    {{ end }}
+
+    <article class="post {{ .Scratch.Get `postClass` }}">
+      <header class="post-header">
+        <h2 class="post-title">{{ .Title }}</h2>
+      </header>
+      <p class="post-summary">{{ .Content }}</p>
+      <footer class="post-footer">
+        <p class="post-meta">{{ .Date.Format "2006.1.2" }}</p>
+      </footer>
+      <br/>
+      <a alt="{{ .Title }}" class="post-link" href="{{ .Permalink }}"></a>
+      <div>
+        {{ if .Params.tweet }}
+          <img alt="Post imported from Twitter" title="Post imported from Twitter" src="/images/from-twitter.png">
+          <span><i>Este texto foi originalmente postado no Twitter e convertido para o blog</i></span>
+        {{ end }}
+      </div>
+    </article>
+  {{ end }}
+{{ end }}
+
+{{ if gt $paginator.TotalPages 1 }}
+<footer class="list-footer">
+  <nav class="pagination">
+    {{ if $paginator.HasPrev }}
+    <a alt="anterior" class="pagination-prev" href="{{ $paginator.Prev.URL }}">← Prev Page</a>
+    {{ end }}
+    {{ if $paginator.HasNext }}
+    <a alt="próximo" class="pagination-next" href="{{ $paginator.Next.URL }}">Next Page →</a>
+    {{ end }}
+  </nav>
+</footer>
+{{ end }}
+{{ partial "footer.html" . }}

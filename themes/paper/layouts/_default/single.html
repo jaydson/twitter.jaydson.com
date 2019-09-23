@@ -1,0 +1,48 @@
+{{ partial "header.html" . }}
+<link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet">
+<article class="post post-view">
+  <header class="post-header">
+    <h1 class="post-title">{{ .Title }}</h1>
+    <p class="post-meta">
+      {{- if or .Params.author .Site.Params.author -}}
+      {{ .Params.author | default .Site.Params.author }} · {{ end }}
+      {{- .Date.Format "2006.1.2" -}}
+    </p>
+  </header>
+  <div class="post-content">{{ .Content }}</div>
+  <footer class="post-footer">
+    {{ if .Params.tags }}
+    <ul class="post-tags">
+      {{ range .Params.tags }}
+      <li><a href="{{$.Site.BaseURL}}tags/{{ . | urlize }}/">{{ . }}</a></li>
+      {{ end }}
+    </ul>
+    {{ end }}
+  </footer>
+  <div>
+    {{ if .Params.tweet }}
+      <a href="{{ .Params.tweet_url }}">
+        <img alt="Post imported from Twitter" title="Post imported from Twitter" src="/images/from-twitter.png">
+        <span><i>Este texto foi originalmente postado no Twitter e convertido para o blog</i></span>
+      </a>
+    {{ end }}
+  </div>
+  <br/>
+  <div>
+    {{ $related := .Site.RegularPages.Related . | first 5 }}
+    {{ with $related }}
+    <h3>Conteúdo relacionado</h3>
+    <ul>
+      {{ range . }}
+      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      {{ end }}
+    </ul>
+    {{ end }}
+  </div>
+</article>
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js" data-no-instant></script>
+<script data-no-instant>
+  hljs.initHighlightingOnLoad();
+</script>
+{{ partial "footer.html" . }}
