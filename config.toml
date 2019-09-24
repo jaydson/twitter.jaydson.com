@@ -16,6 +16,7 @@ theme= "paper"
   authorwebsite = "https://jaydson.com"
   bio= "Cofundador da @BrazilJS, Cofundador da @Nasc, Desenvolvedor de software, autor e editor no portal BrazilJS."
   logo = "images/2016/09/logo-jaydson-gray-1.png"
+  paginate = 50
   # Optional RSS-Link, if not provided it defaults to the standard index.xml
   #RSSLink = "http://feeds.feedburner.com/..."
   githubName = "jaydson"
@@ -37,13 +38,13 @@ theme= "paper"
     twitter = "jaydson"
 
  [[menu.main]]
-  name = "Home"
-  weight = -100
+  name = "Blog"
+  weight = -110
   identifier = "home"
-  url = "/"
+  url = "https://jaydson.com"
 
 [[menu.main]]
   name = "Palestras"
-  weight = -110
+  weight = -100
   identifier = "palestras"
   url = "/palestras"
